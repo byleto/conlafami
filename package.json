@@ -18,9 +18,11 @@
     "@mui/x-data-grid": "^6.18.4",
     "@react-firebase/auth": "^0.2.10",
     "@react-firebase/database": "^0.3.11",
+    "DatePicker": "link:@mui/x-date-pickers/DatePicker",
     "firebase": "^10.7.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.48.2"
   },
   "devDependencies": {
     "@types/node": "^20.10.4",

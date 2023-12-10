@@ -14,7 +14,7 @@ export default function DataTable({
   const columns = buildDataColumns(firstRow);
 
   return (
-    <div style={{ width: "100%" }}>
+    <div style={{ height: "600px", width: "100%" }}>
       <DataGrid
         rows={rows}
         columns={columns}

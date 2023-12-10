@@ -17,7 +17,7 @@ export const buildDataColumns = (user: DocumentData): GridColDef[] => {
     return columnNames?.map((column) => ({
       field: column,
       headerName: partner.fieldHeaders[column] || column,
-      width: 130,
+      width: 150,
     }));
   }
   return [];

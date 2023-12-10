@@ -20,10 +20,10 @@ import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { NewPartnerModal } from "./NewPartnersModal";
 
 async function getPartners(db: Firestore) {
-  const citiesCol = collection(db, "partners");
-  const citySnapshot = await getDocs(citiesCol);
-  const cityList = citySnapshot.docs.map((doc) => doc.data());
-  return cityList;
+  const partnersCollection = collection(db, "partners");
+  const partnerSnapshot = await getDocs(partnersCollection);
+  const partnerList = partnerSnapshot.docs.map((doc) => doc.data());
+  return partnerList;
 }
 
 export const PartnersListPage = () => {
@@ -45,7 +45,7 @@ export const PartnersListPage = () => {
   return (
     <>
       <CssBaseline />
-      <Container>
+      <Container sx={{ width: "100%" }}>
         <Breadcrumbs aria-label="breadcrumb">
           <Link
             underline="hover"

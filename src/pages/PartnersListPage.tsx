@@ -1,4 +1,5 @@
-import { Box, Button, Grid, Modal } from "@mui/material";
+import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import { Box, Button, Grid } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,7 +17,6 @@ import { useEffect, useState } from "react";
 import { firebaseConfig } from "../../firebase.config";
 import DataTable from "../components/UsersDataTable";
 import { partner } from "../dataModel/partners";
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 import { NewPartnerModal } from "./NewPartnersModal";
 
 async function getPartners(db: Firestore) {

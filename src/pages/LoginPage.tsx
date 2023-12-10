@@ -1,24 +1,18 @@
-import {
-  Container,
-  FormControl,
-  InputLabel,
-  Input,
-  FormHelperText,
-  Button,
-  Typography,
-  Box,
-  Stack,
-} from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 import VpnKeyIcon from "@mui/icons-material/VpnKey";
-import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-import { firebaseConfig } from "../../firebase.config";
+import {
+  Box,
+  Button,
+  Container,
+  FormControl,
+  FormHelperText,
+  Input,
+  InputLabel,
+  Stack,
+  Typography,
+} from "@mui/material";
 
 export const LoginPage = () => {
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  
   return (
     <Container
       sx={{ border: "solid", borderRadius: "10px", p: "16px", width: "500px" }}

@@ -9,11 +9,14 @@ import {
   InputLabel,
   FormControl,
   FormHelperText,
+  Snackbar,
+  Alert,
 } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { firebaseConfig } from "../../firebase.config";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useState } from "react";
 
 const style = {
   position: "absolute" as "absolute",
@@ -35,13 +38,13 @@ interface IFormInput {
   email: string;
 }
 
-const partner = {
-  dni: "0801-1990-01282",
-  firstName: "Francisco Josue",
-  lastName: "Torres",
-  dateOfBirth: "23/12/2023",
-  phoneNumber: "98401202",
-  email: "franciscotorres23@gmail.com",
+const partnerDefaultValues = {
+  firstName: "",
+  lastName: "",
+  dni: "",
+  dateOfBirth: "",
+  email: "",
+  phoneNumber: "",
 };
 
 const FormControlMui = ({
@@ -79,16 +82,10 @@ export const NewPartnerModal = ({
   handleClose: () => void;
   isOpen: boolean;
 }) => {
-  const { control, handleSubmit } = useForm({
-    defaultValues: {
-      firstName: "",
-      lastName: "",
-      dni: "",
-      dateOfBirth: "",
-      email: "",
-      phoneNumber: "",
-    },
+  const { control, handleSubmit, reset } = useForm({
+    defaultValues: partnerDefaultValues,
   });
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
@@ -96,6 +93,8 @@ export const NewPartnerModal = ({
   const onSubmit: SubmitHandler<IFormInput> = async (partner) => {
     try {
       const docRef = await setDoc(doc(db, "partners", partner.dni), partner);
+      setShowSuccessMessage(true);
+      reset();
       console.log("Document written with ID: ", docRef);
     } catch (e) {
       console.error("Error adding document: ", e);
@@ -199,16 +198,25 @@ export const NewPartnerModal = ({
           />
           {
             <Box pt="16px">
-              <Button
-                type="submit"
-                variant="contained"
-                endIcon={<SaveIcon />}
-              >
+              <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
                 Guardar
               </Button>
             </Box>
           }
         </form>
+        <Snackbar
+          open={showSuccessMessage}
+          autoHideDuration={2000}
+          onClose={handleClose}
+        >
+          <Alert
+            onClose={handleClose}
+            severity="success"
+            sx={{ width: "100%" }}
+          >
+            El socio ha sido guardado exitosamente!
+          </Alert>
+        </Snackbar>
       </Box>
     </Modal>
   );

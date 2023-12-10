@@ -1,4 +1,6 @@
-export const firebaseConfig = {
+import type { FirebaseOptions } from "firebase/app";
+
+export const firebaseConfig: FirebaseOptions = {
   apiKey: import.meta.env.VITE_Firebase_ApiKey,
   authDomain: "comlafami.firebaseapp.com",
   projectId: "comlafami",

@@ -43,7 +43,7 @@ export const PartnersListPage = () => {
   }, []);
 
   return (
-    <>
+    <Box pt="32px">
       <CssBaseline />
       <Container sx={{ width: "100%" }}>
         <Breadcrumbs aria-label="breadcrumb">
@@ -56,7 +56,7 @@ export const PartnersListPage = () => {
           </Link>
           <Typography color="text.primary">Socios</Typography>
         </Breadcrumbs>
-        <Typography color="text.primary" variant="h4" gutterBottom>
+        <Typography color="#1976d2" variant="h4" gutterBottom>
           Lista de Socios
         </Typography>
         <Box>
@@ -74,6 +74,6 @@ export const PartnersListPage = () => {
         </Box>
       </Container>
       {open && <NewPartnerModal handleClose={handleClose} isOpen={open} />}
-    </>
+    </Box>
   );
 };

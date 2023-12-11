@@ -1,16 +1,20 @@
+import { Container } from "@mui/material";
 import "./App.css";
 import Footer from "./components/Footer";
 import { PartnersListPage } from "./pages/PartnersListPage";
-import { Box, Container } from "@mui/material";
+import { Header } from "./components/Header";
 
 function App() {
   return (
-    <Container>
-      <PartnersListPage />
+    <div>
+      <Header />
+      <Container>
+        <PartnersListPage />
+      </Container>
       <footer>
         <Footer />
       </footer>
-    </Container>
+    </div>
   );
 }
 

@@ -1,11 +1,16 @@
 import "./App.css";
+import Footer from "./components/Footer";
 import { PartnersListPage } from "./pages/PartnersListPage";
+import { Box, Container } from "@mui/material";
 
 function App() {
   return (
-    <div style={{ background: "white" }}>
+    <Container>
       <PartnersListPage />
-    </div>
+      <footer>
+        <Footer />
+      </footer>
+    </Container>
   );
 }
 

@@ -11,9 +11,9 @@ function App() {
       <Container>
         <PartnersListPage />
       </Container>
-      <footer>
+      {/* <footer> */}
         <Footer />
-      </footer>
+      {/* </footer> */}
     </div>
   );
 }

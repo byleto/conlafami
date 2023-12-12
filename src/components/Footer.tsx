@@ -1,22 +1,33 @@
 import { FC, ReactElement } from "react";
-import { Box, Container, Grid, Typography } from "@mui/material";
+import {
+  Box,
+  Container,
+  Grid,
+  Typography,
+  BottomNavigation,
+  CssBaseline,
+} from "@mui/material";
 
 export const Footer: FC = (): ReactElement => {
   return (
-    <Box
+    <BottomNavigation
       sx={{
+        background: "#1665C0",
+        position: "fixed",
+        left: 0,
+        bottom: 0,
         width: "100%",
-        height: "auto",
-        backgroundColor: "black",
-        paddingTop: "1rem",
-        paddingBottom: "1rem",
+        color: "white",
+        textAlign: "center",
       }}
     >
-      <Container maxWidth="lg">
+      <CssBaseline />
+
+      <Container sx={{ padding: "16px" }} maxWidth="lg">
         <Grid container direction="column" alignItems="center">
           <Grid item xs={12}>
             <Typography color="white" variant="h5">
-            CONLAFAMI - Cooperativa Familiar 
+              CONLAFAMI - Cooperativa Familiar
             </Typography>
           </Grid>
           <Grid item xs={12}>
@@ -26,7 +37,8 @@ export const Footer: FC = (): ReactElement => {
           </Grid>
         </Grid>
       </Container>
-    </Box>
+      {/* </Box> */}
+    </BottomNavigation>
   );
 };
 

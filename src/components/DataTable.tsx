@@ -2,6 +2,7 @@ import { DataGrid } from "@mui/x-data-grid";
 import { DocumentData } from "firebase/firestore";
 import { buildDataColumns } from "./utils";
 import { HiddenColumns } from "../dataModel/partners";
+import { Box } from "@mui/material";
 
 export default function DataTable({
   rows,
@@ -14,7 +15,16 @@ export default function DataTable({
   const columns = buildDataColumns(firstRow);
 
   return (
-    <div style={{ height: "600px", width: "100%" }}>
+    <Box
+      sx={{
+        height: 600,
+        width: "100%",
+        "& .super-app-theme--header": {
+          backgroundColor: "black",
+          color: "white",
+        },
+      }}
+    >
       <DataGrid
         rows={rows}
         columns={columns}
@@ -25,10 +35,13 @@ export default function DataTable({
           columns: {
             columnVisibilityModel: hiddenColumns,
           },
+          
         }}
         pageSizeOptions={[5, 10]}
         checkboxSelection
+
+        
       />
-    </div>
+    </Box>
   );
 }

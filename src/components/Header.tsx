@@ -10,52 +10,56 @@ export const Header = () => {
   return (
     <div>
       <AppBar>
-        <Toolbar>
-          <Typography sx={{ paddingRight: "16px" }}>LOGO </Typography>
-          CONLAFAMI
-          <Box p="8px">
-            <Link
-              sx={{ paddingRight: "8px", color: "white" }}
-              underline="hover"
-              variant="body2"
-              href="/"
-            >
-              Inicio
-            </Link>
-            <Link
-              sx={{ paddingRight: "8px", color: "white" }}
-              underline="hover"
-              variant="body2"
-              href="/"
-            >
-              Socios
-            </Link>
-            <Link
-              sx={{ paddingRight: "8px", color: "white" }}
-              underline="hover"
-              variant="body2"
-              href="/"
-            >
-              Cuentas
-            </Link>
-            <Link
-              sx={{ paddingRight: "8px", color: "white" }}
-              underline="hover"
-              variant="body2"
-              href="/"
-            >
-              Transacciones
-            </Link>
-            <Link
-              sx={{ paddingRight: "8px", color: "white" }}
-              underline="hover"
-              variant="body2"
-              href="/"
-            >
-              Reportes
-            </Link>
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Box>
+            <Typography sx={{ paddingRight: "16px" }}>LOGO </Typography>
+            <Typography sx={{ paddingRight: "16px" }}>CONLAFAMI </Typography>
           </Box>
-        </Toolbar>
+          <Box p="8px">
+            <Toolbar>
+              <Link
+                sx={{ paddingRight: "8px", color: "white" }}
+                underline="hover"
+                variant="body2"
+                href="/"
+              >
+                Inicio
+              </Link>
+              <Link
+                sx={{ paddingRight: "8px", color: "white" }}
+                underline="hover"
+                variant="body2"
+                href="/"
+              >
+                Socios
+              </Link>
+              <Link
+                sx={{ paddingRight: "8px", color: "white" }}
+                underline="hover"
+                variant="body2"
+                href="/"
+              >
+                Cuentas
+              </Link>
+              <Link
+                sx={{ paddingRight: "8px", color: "white" }}
+                underline="hover"
+                variant="body2"
+                href="/"
+              >
+                Transacciones
+              </Link>
+              <Link
+                sx={{ paddingRight: "8px", color: "white" }}
+                underline="hover"
+                variant="body2"
+                href="/"
+              >
+                Reportes
+              </Link>
+            </Toolbar>
+          </Box>
+        </Box>
       </AppBar>
     </div>
   );

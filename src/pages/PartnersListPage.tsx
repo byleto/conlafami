@@ -1,5 +1,5 @@
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
-import { Box, Button, Grid } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -15,7 +15,7 @@ import {
 } from "firebase/firestore/lite";
 import { useEffect, useState } from "react";
 import { firebaseConfig } from "../../firebase.config";
-import DataTable from "../components/UsersDataTable";
+import DataTable from "../components/DataTable";
 import { partner } from "../dataModel/partners";
 import { NewPartnerModal } from "./NewPartnersModal";
 
@@ -56,11 +56,18 @@ export const PartnersListPage = () => {
           </Link>
           <Typography color="text.primary">Socios</Typography>
         </Breadcrumbs>
-        <Typography color="#1976d2" variant="h4" gutterBottom>
-          Lista de Socios
-        </Typography>
+
         <Box>
-          <Grid pb="16px" container justifyContent="flex-end">
+          <Box
+            sx={{
+              padding: "16px",
+              display: "flex",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography color="#1976d2" variant="h6" gutterBottom>
+              Socios
+            </Typography>
             <Button
               onClick={handleOpen}
               variant="contained"
@@ -68,7 +75,7 @@ export const PartnersListPage = () => {
             >
               Nuevo
             </Button>
-          </Grid>
+          </Box>
 
           <DataTable rows={partners} hiddenColumns={partner.hiddenColumns} />
         </Box>

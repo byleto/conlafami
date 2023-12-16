@@ -1,8 +1,6 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { DocumentData } from "firebase/firestore";
-import { partner } from "../dataModel/partners";
-
-
+import { DataModel } from "../dataModel/types";
 
 const getListOfKeysFromObject = (object: DocumentData) => {
   if (object) {
@@ -11,12 +9,12 @@ const getListOfKeysFromObject = (object: DocumentData) => {
   return null;
 };
 
-export const buildDataColumns = (user: DocumentData): GridColDef[] => {
-  const columnNames = getListOfKeysFromObject(user);
+export const buildDataColumns = (object: DocumentData, model:DataModel): GridColDef[] => {
+  const columnNames = getListOfKeysFromObject(object);
   if (columnNames) {
     return columnNames?.map((column) => ({
       field: column,
-      headerName: partner.fieldHeaders[column] || column,
+      headerName: model.fieldHeaders[column] || column,
       width: 150,
     }));
   }

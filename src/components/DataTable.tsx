@@ -1,18 +1,18 @@
+import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 import { DocumentData } from "firebase/firestore";
+import { DataModel } from "../dataModel/types";
 import { buildDataColumns } from "./utils";
-import { HiddenColumns } from "../dataModel/partners";
-import { Box } from "@mui/material";
 
 export default function DataTable({
   rows,
-  hiddenColumns,
+  dataModel,
 }: {
   rows: DocumentData[];
-  hiddenColumns: HiddenColumns;
+  dataModel: DataModel;
 }) {
   const [firstRow] = rows;
-  const columns = buildDataColumns(firstRow);
+  const columns = buildDataColumns(firstRow, dataModel);
 
   return (
     <Box
@@ -33,7 +33,7 @@ export default function DataTable({
             paginationModel: { page: 0, pageSize: 5 },
           },
           columns: {
-            columnVisibilityModel: hiddenColumns,
+            columnVisibilityModel: dataModel.hiddenColumns,
           },
           
         }}

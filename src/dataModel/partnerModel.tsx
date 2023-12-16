@@ -6,7 +6,7 @@ type DataModel = {
   hiddenColumns: HiddenColumns;
 };
 
-export const partner: DataModel = {
+export const partnerModel: DataModel = {
   fieldHeaders: {
     lastName: "Apellido",
     firstName: "Nombre",

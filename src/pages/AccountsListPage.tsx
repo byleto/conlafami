@@ -13,31 +13,30 @@ import {
   getDocs,
   getFirestore,
 } from "firebase/firestore/lite";
+import { uniqueId } from 'lodash';
 import { useEffect, useState } from "react";
 import { firebaseConfig } from "../../firebase.config";
 import DataTable from "../components/DataTable";
-import { partnerModel } from "../dataModel/partnerModel";
-import { NewPartnerModal } from "./NewPartnersModal";
+import { accountModel } from "../dataModel/accountModel";
 
-async function getPartners(db: Firestore) {
-  const partnersCollection = collection(db, "partners");
-  const partnerSnapshot = await getDocs(partnersCollection);
-  const partnerList = partnerSnapshot.docs.map((doc) => doc.data());
-  return partnerList;
+async function getAccounts(db: Firestore) {
+  const accountsCollection = collection(db, "accounts");
+  const accountSnapshot = await getDocs(accountsCollection);
+  return accountSnapshot.docs.map((doc) => doc.data());
 }
 
-export const PartnersListPage = () => {
+export const AccountListPage = () => {
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
-  const [partners, setPartners] = useState<DocumentData[]>([]);
+  const [accounts, setAccounts] = useState<DocumentData[]>([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
-      const data = await getPartners(db);
-      setPartners(data.map((user) => ({ ...user, id: user.dni })));
+      const data = await getAccounts(db);
+      setAccounts(data.map((account) => ({ ...account, id: uniqueId() })));
     };
     fetchData();
   }, []);
@@ -54,7 +53,7 @@ export const PartnersListPage = () => {
           >
             Core
           </Link>
-          <Typography color="text.primary">Socios</Typography>
+          <Typography color="text.primary">Cuentas</Typography>
         </Breadcrumbs>
 
         <Box>
@@ -66,21 +65,20 @@ export const PartnersListPage = () => {
             }}
           >
             <Typography color="#1976d2" variant="h6" gutterBottom>
-              Socios
+              Cuentas
             </Typography>
             <Button
               onClick={handleOpen}
               variant="contained"
               endIcon={<PersonAddAlt1Icon />}
             >
-              Nuevo
+              Nueva
             </Button>
           </Box>
 
-          <DataTable rows={partners} dataModel={partnerModel} />
+          <DataTable rows={accounts} dataModel={accountModel} />
         </Box>
       </Container>
-      {open && <NewPartnerModal handleClose={handleClose} isOpen={open} />}
     </Box>
   );
 };

@@ -1,19 +1,25 @@
-import PersonAddIcon from "@mui/icons-material/PersonAdd";
+import AddBoxIcon from "@mui/icons-material/AddBox";
 import SaveIcon from "@mui/icons-material/Save";
 import {
   Alert,
   Box,
   Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
   Modal,
+  Select,
   Snackbar,
-  Typography
+  Typography,
 } from "@mui/material";
 import { initializeApp } from "firebase/app";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { uniqueId } from "lodash";
 import { useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { firebaseConfig } from "../../firebase.config";
 import { FormControlMui } from "../components/FormControlMUI";
+import { useGetAccounts } from "../hooks/useGetAccounts";
 
 const style = {
   position: "absolute" as "absolute",
@@ -26,25 +32,29 @@ const style = {
   p: 4,
 };
 
-interface IFormInput {
-  dni: string;
-  firstName: string;
-  lastName: string;
-  dateOfBirth: string;
-  phoneNumber: string;
-  email: string;
+interface IFormMovementsInput {
+  id: string;
+  accountId: string;
+  parnerId: string;
+  accountNumber: string;
+  quantity: number;
+  type: string;
+  date: string;
+  description: string;
 }
 
-const partnerDefaultValues = {
-  firstName: "",
-  lastName: "",
-  dni: "",
-  dateOfBirth: "",
-  email: "",
-  phoneNumber: "",
+const movementsDefaultValues = {
+  id: "",
+  accountId: "",
+  parnerId: "",
+  accountNumber: "",
+  quantity: 0,
+  type: "",
+  date: "",
+  description: "",
 };
 
-export const NewPartnerModal = ({
+export const NewMovementModal = ({
   handleClose,
   isOpen,
 }: {
@@ -52,16 +62,20 @@ export const NewPartnerModal = ({
   isOpen: boolean;
 }) => {
   const { control, handleSubmit, reset } = useForm({
-    defaultValues: partnerDefaultValues,
+    defaultValues: movementsDefaultValues,
   });
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   const app = initializeApp(firebaseConfig);
   const db = getFirestore(app);
+  const accounts = useGetAccounts(db).map((account) => ({
+    id: account.accountNumber,
+    name: account.partnerName,
+  }));
 
-  const onSubmit: SubmitHandler<IFormInput> = async (partner) => {
+  const onSubmit: SubmitHandler<IFormMovementsInput> = async (movement) => {
     try {
-      const docRef = await setDoc(doc(db, "partners", partner.dni), partner);
+      const docRef = await setDoc(doc(db, "movements", uniqueId()), movement);
       setShowSuccessMessage(true);
       reset();
       console.log("Document written with ID: ", docRef);
@@ -79,7 +93,7 @@ export const NewPartnerModal = ({
     >
       <Box sx={style}>
         <Box sx={{ display: "inline-flex" }}>
-          <PersonAddIcon
+          <AddBoxIcon
             sx={{ marginRight: "16px" }}
             fontSize="large"
             color="primary"
@@ -90,88 +104,93 @@ export const NewPartnerModal = ({
             variant="h6"
             component="h2"
           >
-            Nuevo Socio
+            Nuevo Movimiento
           </Typography>
         </Box>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Controller
-            name="dni"
+            name="accountNumber"
+            control={control}
+            render={({ field }) => (
+              <FormControl fullWidth>
+                <InputLabel id="partner-label">Socio</InputLabel>
+                <Select
+                  {...field}
+                  labelId="partner-label"
+                  id="partner-select"
+                  label="Socio:"
+                >
+                  {accounts.map((account) => {
+                    return (
+                      <MenuItem
+                        key={uniqueId()}
+                        value={account.id}
+                      >{`${account.id} - ${account.name}`}</MenuItem>
+                    );
+                  })}
+                </Select>
+              </FormControl>
+            )}
+          />
+          <Controller
+            name="accountId"
             control={control}
             render={({ field }) => (
               <FormControlMui
                 field={field}
                 inputName="dni"
-                helperText="Ingrese el DNI con guiones"
-                label="DNI"
+                helperText="Ingrese la cantidad de la transacción"
+                label="Cantidad:"
               />
             )}
           />
           <Controller
-            name="firstName"
+            name="date"
             control={control}
             render={({ field }) => (
               <FormControlMui
                 field={field}
-                inputName="firstName"
-                helperText="Ingrese el primer nombre"
-                label="Nombre"
+                inputName="date"
+                helperText="Ingrese la Fecha de la transacción dd/MM/YYYY"
+                label="Fecha de transacción"
               />
             )}
           />
           <Controller
-            name="lastName"
+            name="type"
             control={control}
             render={({ field }) => (
-              <FormControlMui
-                field={field}
-                inputName="lastName"
-                helperText="Ingrese el apellido"
-                label="Apellido"
-              />
+              <FormControl fullWidth>
+                <InputLabel id="type-label">Tipo de transacción</InputLabel>
+                <Select
+                  {...field}
+                  labelId="type-label"
+                  id="type-select"
+                  label="Tipo:"
+                >
+                  <MenuItem value={"retiro"}>Retiro</MenuItem>
+                  <MenuItem value={"deposito"}>Deposito</MenuItem>
+                </Select>
+              </FormControl>
             )}
           />
           <Controller
-            name="dateOfBirth"
+            name="description"
             control={control}
             render={({ field }) => (
               <FormControlMui
                 field={field}
-                inputName="dateOfBirth"
-                helperText="Ingrese la Fecha de Nacimiento dd/MM/YYYY"
-                label="Fecha de Nacimiento"
+                inputName="description"
+                label="Descripcion"
+                helperText="Descripcion de la transacción"
               />
             )}
           />
-          <Controller
-            name="email"
-            control={control}
-            render={({ field }) => (
-              <FormControlMui
-                field={field}
-                inputName="email"
-                label="Correo electronico"
-              />
-            )}
-          />
-          <Controller
-            name="phoneNumber"
-            control={control}
-            render={({ field }) => (
-              <FormControlMui
-                field={field}
-                inputName="phoneNumber"
-                label="Número de Teléfono"
-                helperText="Ingrese el número de teléfono con area de país"
-              />
-            )}
-          />
-          {
-            <Box pt="16px">
-              <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
-                Guardar
-              </Button>
-            </Box>
-          }
+          <Box pt="16px">
+            <Button type="submit" variant="contained" endIcon={<SaveIcon />}>
+              Guardar
+            </Button>
+          </Box>
         </form>
         <Snackbar
           open={showSuccessMessage}
@@ -183,7 +202,7 @@ export const NewPartnerModal = ({
             severity="success"
             sx={{ width: "100%" }}
           >
-            El socio ha sido guardado exitosamente!
+            El movimiento ha sido guardado exitosamente!
           </Alert>
         </Snackbar>
       </Box>

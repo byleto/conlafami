@@ -18,6 +18,7 @@ import { useEffect, useState } from "react";
 import { firebaseConfig } from "../../firebase.config";
 import DataTable from "../components/DataTable";
 import { movementModel } from "../dataModel/movementModel";
+import { NewMovementModal } from './NewMovementsModal';
 
 async function getMovements(db: Firestore) {
   const movementsCollection = collection(db, "movements");
@@ -31,6 +32,7 @@ export const MovementsListPage = () => {
   const [movements, setMovements] = useState<DocumentData[]>([]);
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +56,6 @@ export const MovementsListPage = () => {
           </Link>
           <Typography color="text.primary">Movimientos</Typography>
         </Breadcrumbs>
-
         <Box>
           <Box
             sx={{
@@ -74,10 +75,10 @@ export const MovementsListPage = () => {
               Nuevo
             </Button>
           </Box>
-
           <DataTable rows={movements} dataModel={movementModel} />
         </Box>
       </Container>
+      {open && <NewMovementModal handleClose={handleClose} isOpen={open} />}
     </Box>
   );
 };

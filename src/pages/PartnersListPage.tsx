@@ -18,13 +18,8 @@ import { firebaseConfig } from "../../firebase.config";
 import DataTable from "../components/DataTable";
 import { partnerModel } from "../dataModel/partnerModel";
 import { NewPartnerModal } from "./NewPartnersModal";
+import { getPartners } from "../components/utils";
 
-async function getPartners(db: Firestore) {
-  const partnersCollection = collection(db, "partners");
-  const partnerSnapshot = await getDocs(partnersCollection);
-  const partnerList = partnerSnapshot.docs.map((doc) => doc.data());
-  return partnerList;
-}
 
 export const PartnersListPage = () => {
   const app = initializeApp(firebaseConfig);
@@ -37,7 +32,7 @@ export const PartnersListPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       const data = await getPartners(db);
-      setPartners(data.map((user) => ({ ...user, id: user.dni })));
+      setPartners(data.map((partner) => ({ ...partner, id: partner.dni })));
     };
     fetchData();
   }, []);

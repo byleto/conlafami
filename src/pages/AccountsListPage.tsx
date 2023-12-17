@@ -1,4 +1,4 @@
-import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
+import AddBoxIcon from '@mui/icons-material/AddBox';
 import { Box, Button } from "@mui/material";
 import Breadcrumbs from "@mui/material/Breadcrumbs";
 import Container from "@mui/material/Container";
@@ -70,7 +70,7 @@ export const AccountListPage = () => {
             <Button
               onClick={handleOpen}
               variant="contained"
-              endIcon={<PersonAddAlt1Icon />}
+              endIcon={<AddBoxIcon />}
             >
               Nueva
             </Button>

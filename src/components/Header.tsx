@@ -29,7 +29,7 @@ export const Header = () => {
                 sx={{ paddingRight: "8px", color: "white" }}
                 underline="hover"
                 variant="body2"
-                href="/"
+                href="/partners"
               >
                 Socios
               </Link>
@@ -37,7 +37,7 @@ export const Header = () => {
                 sx={{ paddingRight: "8px", color: "white" }}
                 underline="hover"
                 variant="body2"
-                href="/"
+                href="/accounts"
               >
                 Cuentas
               </Link>
@@ -45,7 +45,7 @@ export const Header = () => {
                 sx={{ paddingRight: "8px", color: "white" }}
                 underline="hover"
                 variant="body2"
-                href="/"
+                href="/movements"
               >
                 Transacciones
               </Link>

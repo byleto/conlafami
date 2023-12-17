@@ -1,20 +1,18 @@
-import { Container } from "@mui/material";
+import { Box } from "@mui/material";
 import "./App.css";
 import Footer from "./components/Footer";
 import { Header } from "./components/Header";
-import { MovementsListPage } from "./pages/MovementsListPage";
+
+import { RouterProvider } from "react-router-dom";
+import { router } from "./routes";
 
 function App() {
   return (
-    <div>
+    <Box>
+      <RouterProvider router={router} />
       <Header />
-      <Container>
-        <MovementsListPage />
-      </Container>
-      {/* <footer> */}
-        <Footer />
-      {/* </footer> */}
-    </div>
+      <Footer />
+    </Box>
   );
 }
 
